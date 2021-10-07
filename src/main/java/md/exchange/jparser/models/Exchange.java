@@ -1,9 +1,14 @@
 package md.exchange.jparser.models;
 
+import java.util.List;
+
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Exchange {
@@ -13,9 +18,12 @@ public class Exchange {
 
     private String bankName;
 
-    private String currencyAbbr;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<ExchangeCurrency> exchangeCurrencies;
 
-    private Double rate;
+    @Basic
+    private java.sql.Timestamp sqlTimestamp;
+
 
     public Long getId() {
         return id;
@@ -33,19 +41,11 @@ public class Exchange {
         this.bankName = bankName;
     }
 
-    public String getCurrencyAbbr() {
-        return currencyAbbr;
+    public List<ExchangeCurrency> getExchangeCurrencies() {
+        return exchangeCurrencies;
     }
 
-    public void setCurrencyAbbr(String currencyAbbr) {
-        this.currencyAbbr = currencyAbbr;
-    }
-
-    public Double getRate() {
-        return rate;
-    }
-
-    public void setRate(Double rate) {
-        this.rate = rate;
+    public void setExchangeCurrencies(List<ExchangeCurrency> exchangeCurrencies) {
+        this.exchangeCurrencies = exchangeCurrencies;
     }
 }
